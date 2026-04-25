@@ -10,6 +10,9 @@ jobs:
     name: get version and create release
     runs-on: ubuntu-latest
     if: github.repository == 'vnulll/siyuan-unlock'
+    permissions:
+      contents: write
+      actions: write
     steps:
       - name: version check
         id: version
