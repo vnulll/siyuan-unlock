@@ -47,6 +47,14 @@ jobs:
 
           git apply --ignore-whitespace --verbose ${{ github.workspace }}/siyuan-note/patches/siyuan-android/debug-build.patch
 
+          # ==================== 新增：阻断阿里云镜像，恢复官方源 ====================
+          # 查找根目录下的 build.gradle 和 settings.gradle（如果存在），将阿里云源替换为官方源
+          find . -name "*.gradle" -type f -exec sed -i 's#https://maven.aliyun.com/repository/google#https://maven.google.com#g' {} +
+          find . -name "*.gradle" -type f -exec sed -i 's#https://maven.aliyun.com/repository/public#https://repo.maven.apache.org/maven2#g' {} +
+          find . -name "*.gradle" -type f -exec sed -i 's#https://maven.aliyun.com/repository/central#https://repo.maven.apache.org/maven2#g' {} +
+          find . -name "*.gradle" -type f -exec sed -i 's#https://maven.aliyun.com/repository/gradle-plugin#https://plugins.gradle.org/m2/#g' {} +
+          # ==========================================================================
+
           mkdir -p app/src/main/assets/
           mkdir -p app/libs/
           sed -i '/signingConfig signingConfigs.release/d' app/build.gradle
