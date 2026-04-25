@@ -7,7 +7,7 @@ on:
         description: "release version/tag"
         required: true
       packageManager:
-        description: "pnpm@x.x.x"
+        description: "pnpm@latest"
         required: true
 
 jobs:
@@ -47,6 +47,7 @@ jobs:
 
           mkdir -p app/src/main/assets/
           mkdir -p app/libs/
+          sed -i '/signingConfig signingConfigs.release/d' app/build.gradle
 
       - name: Set up Go
         uses: actions/setup-go@v5
